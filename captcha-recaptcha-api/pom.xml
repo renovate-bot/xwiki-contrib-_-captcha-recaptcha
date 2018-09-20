@@ -23,7 +23,7 @@
   <parent>
     <groupId>org.xwiki.contrib</groupId>
     <artifactId>captcha-recaptcha</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
   </parent>
   <artifactId>captcha-recaptcha-api</artifactId>
   <name>XWiki Platform - CAPTCHA - reCAPTCHA - API</name>
