@@ -27,12 +27,9 @@
   <defaultLanguage/>
   <translation>0</translation>
   <creator>xwiki:XWiki.Admin</creator>
-  <creationDate>1534867457000</creationDate>
   <parent>XWiki.Captcha.reCAPTCHA.WebHome</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1536240528000</date>
-  <contentUpdateDate>1536234574000</contentUpdateDate>
   <version>1.1</version>
   <title/>
   <comment/>
@@ -133,8 +130,34 @@
       <cache>long</cache>
     </property>
     <property>
-      <code>require(['https://www.google.com/recaptcha/api.js'], function() {
-  // Nothing to do. Executed on load.
+      <code>// Use explicit rendering so that our callback gets called when the reCAPTCHA API is ready to be used.
+requirejs.config({
+  paths: {
+    'recaptcha': '//www.google.com/recaptcha/api.js?onload=reCAPTCHAonloadCallback&amp;render=explicit'
+  }
+});
+
+// We are forced to use the global scope in order for the callback method to be visible to the reCAPTCHA code.
+var reCAPTCHAonloadCallback = function() {
+  require(['jquery', 'xwiki-events-bridge'], function($) {
+    var displayCaptcha = function(container) {
+      $(container).find('.g-recaptcha').each(function() {
+        // The configuration parameters should already be present in the DOM element.
+        grecaptcha.render(this, {});
+      })
+    }
+
+    // Execute on load, for all CAPTCHAs we can find.
+    displayCaptcha(document);
+    // Whenever a CAPTCHA is reloaded via AJAX, we need to re-execute.
+    $(document).on('xwiki:captcha:reloaded', function(event, data) {
+      displayCaptcha(event.target);
+    });
+  });
+};
+
+require(['recaptcha'], function(recaptcha) {
+  // Nothing to do. Execute the callback on load.
 });</code>
     </property>
     <property>

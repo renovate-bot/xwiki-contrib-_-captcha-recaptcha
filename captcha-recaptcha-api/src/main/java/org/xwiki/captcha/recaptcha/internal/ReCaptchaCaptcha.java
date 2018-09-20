@@ -27,6 +27,7 @@ import java.util.Map;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.xwiki.captcha.AbstractCaptcha;
@@ -120,7 +121,13 @@ public class ReCaptchaCaptcha extends AbstractCaptcha
 
         // Mention possible error codes.
         if (!result) {
-            throw new CaptchaException("reCAPTCHA server replied: " + jsonString, null);
+            JSONArray errorCodes = (JSONArray) jsonResponse.get("error-codes");
+            // If the error is other than "missing-input-response" (which simply means the user did not validate the
+            // CAPTCHA before submitting the form), then we might be dealing with a configuration or otherwise
+            // significant problem that we need to fix.
+            if (errorCodes != null && !errorCodes.contains("missing-input-response")) {
+                throw new CaptchaException("reCAPTCHA server replied: " + jsonString, null);
+            }
         }
 
         return result;
