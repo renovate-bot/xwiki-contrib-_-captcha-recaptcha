@@ -32,6 +32,8 @@
   <description>CAPTCHA implementation using Google reCAPTCHA.</description>
   <properties>
     <xwiki.jacoco.instructionRatio>0.00</xwiki.jacoco.instructionRatio>
+    <xwiki.issueManagement.jira.id>RECAPTCHA</xwiki.issueManagement.jira.id>
+    <xwiki.release.jira.skip>false</xwiki.release.jira.skip>
   </properties>
   <scm>
     <connection>scm:git:git://github.com/xwiki-contrib/captcha-recaptcha.git</connection>
