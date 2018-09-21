@@ -27,7 +27,6 @@
   </parent>
   <artifactId>captcha-recaptcha-ui</artifactId>
   <name>XWiki Platform - CAPTCHA - reCAPTCHA - UI</name>
-  <description>reCAPTCHA based implementation for the XWiki CAPTCHA Application</description>
   <packaging>xar</packaging>
   <properties>
     <!-- Name to display by the Extension Manager -->
