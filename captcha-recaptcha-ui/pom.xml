@@ -27,6 +27,7 @@
   </parent>
   <artifactId>captcha-recaptcha-ui</artifactId>
   <name>XWiki Platform - CAPTCHA - reCAPTCHA - UI</name>
+  <description>CAPTCHA implementation using Google reCAPTCHA.</description>
   <packaging>xar</packaging>
   <properties>
     <!-- Name to display by the Extension Manager -->
